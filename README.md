@@ -18,7 +18,7 @@ Este programa en C permitirá a una tienda gestionar su inventario de productos 
 
 ### Estructura del programa:
 1. **Archivo principal (`main.c`)**: Contiene la lógica principal y la interacción con el usuario.
-2. **Archivo de cabecera (`funciones.h`)**: Declara las funciones necesarias.
+2. **Archivo de cabecera (`funciones.h`)**: Declara las funciones necearias.
 3. **Archivo de implementación (`funciones.c`)**: Implementa las funciones declaradas en el archivo de cabecera.
 
 ### Datos organizados:
