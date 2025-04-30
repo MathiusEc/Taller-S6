@@ -34,3 +34,54 @@ void registrarProductos(char producto[][30], float precio[], int cantidad)
 
     printf("Productos registrados correctamente.\n");
 }
+
+float calcularPrecioTotal(float precios[], int cant)
+{
+    float total = 0;
+
+    for (int i = 0; i < cant; i++)
+    {
+        total += precios[i];
+    }
+    return total;
+}
+
+void encontrarMasCaro(float precios[], int cant, char producto[][30])
+{
+    if (cant == 0)
+    {
+        printf("No hay productos en el inventario.\n");
+        return;
+    }
+
+    int indice = 0;
+    for (int i = 1; i < cant; i++)
+    {
+        if (precios[i] > precios[indice])
+        {
+            indice = i;
+        }
+    }
+
+    printf("Producto más caro: %s - $%.2f\n", producto[indice], precios[indice]);
+}
+
+void encontrarMasBarato(float precios[], int cant, char producto[][30])
+{
+    if (cant == 0)
+    {
+        printf("No hay productos en el inventario.\n");
+        return;
+    }
+
+    int indice = 0;
+    for (int i = 1; i < cant; i++)
+    {
+        if (precios[i] < precios[indice])
+        {
+            indice = i;
+        }
+    }
+
+    printf("Producto más barato: %s - $%.2f\n", producto[indice], precios[indice]);
+}
