@@ -6,14 +6,22 @@ void registrarProductos(char producto[][30], float precio[], int cantidad)
     int len, val;
     for (int i = 0; i < cantidad; i++)
     {
-        printf("Ingrese el nombre del producto %d: ", i);
-        fflush(stdin);
-        fgets(producto[i], 30, stdin);
-        len = strlen(producto[i]) - 1;
-        if (producto[i][len] == '\n')
+        do
         {
-            producto[i][len] = '\0';
-        }
+            printf("Ingrese el nombre del producto %d: ", i);
+            fflush(stdin);
+            fgets(producto[i], 30, stdin);
+            len = strlen(producto[i]) - 1;
+            if (producto[i][len] == '\n')
+            {
+                producto[i][len] = '\0';
+            }
+            else if (strlen(producto[i]) == 0)
+            {
+                printf("Error: El nombre del producto no puede estar vacío. Intente nuevamente.\n");
+            }
+
+        } while (strlen(producto[i]) == 0);
 
         printf("Ingrese el precio del producto %d: ", i);
         fflush(stdin);
@@ -48,12 +56,6 @@ float calcularPrecioTotal(float precios[], int cant)
 
 void encontrarMasCaro(float precios[], int cant, char producto[][30])
 {
-    if (cant == 0)
-    {
-        printf("No hay productos en el inventario.\n");
-        return;
-    }
-
     int indice = 0;
     for (int i = 1; i < cant; i++)
     {
@@ -68,12 +70,6 @@ void encontrarMasCaro(float precios[], int cant, char producto[][30])
 
 void encontrarMasBarato(float precios[], int cant, char producto[][30])
 {
-    if (cant == 0)
-    {
-        printf("No hay productos en el inventario.\n");
-        return;
-    }
-
     int indice = 0;
     for (int i = 1; i < cant; i++)
     {
@@ -88,12 +84,6 @@ void encontrarMasBarato(float precios[], int cant, char producto[][30])
 
 float calcularPrecioPromedio(float precios[], int cant)
 {
-    if (cant == 0)
-    {
-        printf("No hay productos en el inventario.\n");
-        return;
-    }
-
     float total = calcularPrecioTotal(precios, cant);
     float promedio = total / cant;
 
@@ -106,7 +96,7 @@ void buscarProducto(float precios[], int cant, char producto[][30], char nombre[
     {
         if (strcmp(producto[i], nombre) == 0)
         {
-            printf("Producto encontrado: %s - $%.2f, Cantidad: %d\n", nombre[i], precios[i]);
+            printf("Producto encontrado: %s - $%.2f, Cantidad: %d\n", producto[i], precios[i]);
             return;
         }
     }

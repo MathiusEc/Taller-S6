@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <string.h>
+#include "funciones.h"
 
 #define MAX_PRODUCTOS 10
 
 int main(int argc, char *argv[])
 {
-    int opc, val, cant;
+    int opc, val, cant, len;
     char producto[MAX_PRODUCTOS][30];
     float precio[MAX_PRODUCTOS];
+    char nombre[30];
 
     printf("Cuantos productos desea registrar? (maximo %d): ", MAX_PRODUCTOS);
     fflush(stdin);
@@ -25,11 +27,8 @@ int main(int argc, char *argv[])
         }
         else
         {
-
         }
-    } while (val != 1 || cant > MAX_PRODUCTOS || cant < 1);   
-    
-
+    } while (val != 1 || cant > MAX_PRODUCTOS || cant < 1);
 
     do
     {
@@ -55,9 +54,39 @@ int main(int argc, char *argv[])
         switch (opc)
         {
         case 1:
-            
+            printf("Precio total del inventario: %.2f\n", calcularPrecioTotal(precio, cant));
+            printf("\n");
             break;
-        
+
+        case 2:
+            encontrarMasCaro(precio, cant, producto);
+            printf("\n");
+            break;
+
+        case 3:
+            encontrarMasBarato(precio, cant, producto);
+            printf("\n");
+            break;
+
+        case 4:
+            printf("Precio promedio: %.2f\n", calcularPrecioPromedio(precio, cant));
+            printf("\n");
+            break;
+
+        case 5:
+            printf("Ingrese el nombre del producto a buscar: ");
+            fflush(stdin);
+            fgets(nombre, 30, stdin);
+
+            len = strlen(nombre) - 1;
+            if (nombre[len] == '\n')
+            {
+                nombre[len] = '\0';
+            }
+            buscarProducto(precio, cant, producto, nombre);
+            printf("\n");
+            break;
+
         default:
             break;
         }
