@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
         }
         else
         {
+            registrarProductos(producto, precio, cant);
+            printf("Productos registrados correctamente.\n");
         }
     } while (val != 1 || cant > MAX_PRODUCTOS || cant < 1);
 
@@ -83,7 +85,15 @@ int main(int argc, char *argv[])
             {
                 nombre[len] = '\0';
             }
-            buscarProducto(precio, cant, producto, nombre);
+            int f = buscarProducto(producto, precio, cant, nombre);
+            if (f != -1)
+            {
+                printf("Producto encontrado: %s - $%.2f\n", producto[f], precio[f]);
+            }
+            else
+            {
+                printf("Producto no encontrado.\n");
+            }
             printf("\n");
             break;
 

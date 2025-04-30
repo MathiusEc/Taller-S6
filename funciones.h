@@ -90,15 +90,16 @@ float calcularPrecioPromedio(float precios[], int cant)
     return promedio;
 }
 
-void buscarProducto(float precios[], int cant, char producto[][30], char nombre[])
+int buscarProducto(float precios[], int cant, char producto[][30], char nombre[])
 {
     for (int i = 0; i < cant; i++)
     {
         if (strcmp(producto[i], nombre) == 0)
         {
             printf("Producto encontrado: %s - $%.2f, Cantidad: %d\n", producto[i], precios[i]);
-            return;
+            return i;
         }
+
     }
-    printf("Producto no encontrado.\n");
+    return -1;
 }
