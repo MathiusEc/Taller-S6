@@ -39,8 +39,6 @@ void registrarProductos(char producto[][30], float precio[], int cantidad)
             }
         } while (val != 1 || precio[i] < 0);
     }
-
-    printf("Productos registrados correctamente.\n");
 }
 
 float calcularPrecioTotal(float precios[], int cant)
@@ -96,7 +94,6 @@ int buscarProducto(float precios[], int cant, char producto[][30], char nombre[]
     {
         if (strcmp(producto[i], nombre) == 0)
         {
-            printf("Producto encontrado: %s - $%.2f, Cantidad: %d\n", producto[i], precios[i]);
             return i;
         }
 

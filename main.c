@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
             {
                 nombre[len] = '\0';
             }
-            int f = buscarProducto(producto, precio, cant, nombre);
+            int f = buscarProducto(precio, cant, producto, nombre);
             if (f != -1)
             {
                 printf("Producto encontrado: %s - $%.2f\n", producto[f], precio[f]);
