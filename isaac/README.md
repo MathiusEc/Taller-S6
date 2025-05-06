@@ -11,7 +11,7 @@ Este programa en C permitirá a una tienda gestionar su inventario de productos 
 ## **1. Análisis y organización del problema**
 
 ### Objetivos principales:
-- **Calcular el precio total del inventario.**
+- **Calcular el precio total del inventario.** 
 - **Encontrar el producto más caro y el más barato.**
 - **Calcular el precio promedio de todos los productos.**
 - **Buscar un producto por nombre y mostrar su precio.**

@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
             break;
         case 4:// Buscar producto por nombre y mostrar precio
             
-            
+            BuscarInfoPorNombre(productos, precios, amount);
 
             break;
         default:
