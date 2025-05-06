@@ -23,3 +23,10 @@ Este programa en C permitirá a una tienda gestionar su inventario de productos 
 
 ### Datos organizados:
 - **Productos**: Se representarán mediante estructuras, arreglos o listas dependiendo del enfoque elegido.
+
+
+### Archivos .c y.h
+funciones.h tienen el prototipo
+funciones.c el codigo
+para generar el exe:
+gcc main.c funciones.c -o nombredelexe
