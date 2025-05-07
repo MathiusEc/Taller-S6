@@ -2,105 +2,92 @@
 #include <string.h>
 #include "funciones.h"
 
-#define MAX_PRODUCTOS 10
+#define PRODUCTOS_MAXIMO 10
 
 int main(int argc, char *argv[])
 {
-    int opc, val, cant, len;
-    char producto[MAX_PRODUCTOS][30];
-    float precio[MAX_PRODUCTOS];
-    char nombre[30];
-
-    printf("Cuantos productos desea registrar? (maximo %d): ", MAX_PRODUCTOS);
-    fflush(stdin);
+    char productos[PRODUCTOS_MAXIMO][30];
+    int amount, opcin;
+    float precios[PRODUCTOS_MAXIMO];
+    int validar, val;
+    printf("======================================================\n");
+    printf("\t\tSISTEMA DE GESTION DE PRODUCTOS\t\t\n");
+    printf("======================================================\n");
+    printf("\n");
     do
     {
-        val = scanf("%d", &cant);
+        printf("Por favor, ingrese la cantidad de productos, maximo %d\n", PRODUCTOS_MAXIMO);
+        fflush(stdin);
+        val = scanf("%d", &amount);
         if (val != 1)
         {
-            printf("Error: Entrada no válida. Por favor, ingrese un número.\n");
+            printf("Dato ingresado incorrecto, intente de nuevo.\n");
+            printf("\n");
             fflush(stdin);
         }
-        else if (cant > MAX_PRODUCTOS || cant < 1)
+        else if (amount <= 0 || amount > PRODUCTOS_MAXIMO)
         {
-            printf("Error: El número de productos debe estar entre 1 y %d. Intente nuevamente: ", MAX_PRODUCTOS);
+            printf("Por favor ingrese un valor valido dentro del rango (1 a 10).\n");
+            fflush(stdin);
         }
-        else
-        {
-            registrarProductos(producto, precio, cant);
-            printf("Productos registrados correctamente.\n");
-        }
-    } while (val != 1 || cant > MAX_PRODUCTOS || cant < 1);
+
+    } while (val != 1 || (amount < 1 || amount > PRODUCTOS_MAXIMO));
+
+    llenarProductosInfo(productos, precios, amount);
 
     do
     {
-        printf("\n=====================================\n");
-        printf("      GESTIÓN DE INVENTARIO         \n");
-        printf("=====================================\n");
-        printf(" 1. Calcular precio total del inventario\n");
-        printf(" 2. Encontrar producto más caro\n");
-        printf(" 3. Encontrar producto más barato\n");
-        printf(" 4. Calcular precio promedio\n");
-        printf(" 5. Buscar producto por nombre\n");
-        printf(" 6. Salir\n");
-        printf("=====================================\n");
-        printf(">> ");
-
-        fflush(stdin);
-        val = scanf("%d", &opc);
-        if (val != 1)
+        printf("======================================================\n");
+        printf("=============SISTEMA DE CONTROL DE PRODUCTOS==========\n");
+        printf("======================================================\n");
+        printf("\n");
+        printf("MENU:\n");
+        printf("1. Calcular el precio total del inventario\n");
+        printf("2. Encontrar el producto mas caro y el mas barato\n");
+        printf("3. Calcular el promedio del precio de los productos\n");
+        printf("4. Busqueda de informacion de un producto especifico\n");
+        printf("5. Salir\n");
+        do
         {
-            printf("Error: Entrada no válida. Por favor, ingrese un número.\n");
-        }
-
-        switch (opc)
+            printf("Ingrese una opcion\n");
+            printf(">>");
+            fflush(stdin);
+            validar = scanf("%d", &opcin);
+            if (validar != 1 || (opcin < 1 || opcin > 5))
+            {
+                printf("Por favor ingrese un valor dentro del rango disponible (1 a 5)\n");
+                printf("\n");
+            }
+        } while (validar != 1 || (opcin < 1 || opcin > 5));
+        switch (opcin)
         {
         case 1:
-            printf("Precio total del inventario: %.2f\n", calcularPrecioTotal(precio, cant));
+
+            printf("El total del precio del inventario es de: %.2f\n", CalcularTotalInventario(precios, amount));
             printf("\n");
+
             break;
-
-        case 2:
-            encontrarMasCaro(precio, cant, producto);
-            printf("\n");
+        case 2:// Hallar el producto más caro y mas bajo
+            
+            HallarProductoBara(precios, productos, amount);
+            HallarProductoCaro(precios, productos, amount);
+            //Hacemos un llamado a las funciones para poder usarlas.
             break;
+        case 3:// Calcular el precio promedio de los productos
+            
+            printf("El promedio de precios del stock es de: %.2f\n", CalcularPromedioPrecios(precios, amount));
 
-        case 3:
-            encontrarMasBarato(precio, cant, producto);
-            printf("\n");
             break;
+        case 4:// Buscar producto por nombre y mostrar precio
+            
+            BuscarInfoPorNombre(productos, precios, amount);
 
-        case 4:
-            printf("Precio promedio: %.2f\n", calcularPrecioPromedio(precio, cant));
-            printf("\n");
             break;
-
-        case 5:
-            printf("Ingrese el nombre del producto a buscar: ");
-            fflush(stdin);
-            fgets(nombre, 30, stdin);
-
-            len = strlen(nombre) - 1;
-            if (nombre[len] == '\n')
-            {
-                nombre[len] = '\0';
-            }
-            int f = buscarProducto(precio, cant, producto, nombre);
-            if (f != -1)
-            {
-                printf("Producto encontrado: %s - $%.2f\n", producto[f], precio[f]);
-            }
-            else
-            {
-                printf("Producto no encontrado.\n");
-            }
-            printf("\n");
-            break;
-
         default:
             break;
         }
-    } while (opc != 6 || val != 1);
+    } while (opcin != 5);
+    printf("GRACIAS POR USAR NUESTRO SERVICIO, HASTA LUEGO..\n");
 
     return 0;
 }

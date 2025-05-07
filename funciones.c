@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "funciones.h"
 
 void llenarProductosInfo(char productos[][30], float precios[], int amount)
 {
