@@ -26,11 +26,9 @@ void llenarProductosInfo(char productos[][30], float precios[], int amount)
                     len--; // Ajustar longitud real
                 }
 
-                // Validar que el nombre no esté vacío y que no sea solo un "Enter"
                 if (len < 1)
                 {
                     printf("El nombre no puede estar vacio. Intentelo de nuevo.\n");
-                    continue;
                 }
 
                 // Validar que el nombre no esté repetido
@@ -46,7 +44,7 @@ void llenarProductosInfo(char productos[][30], float precios[], int amount)
 
             } while (len < 1 || repetido);
         }
-    }while (len < 1 || repetido);
+    } while (len < 1 || repetido);
     for (int k = 0; k < amount; k++)
     {
         do
@@ -72,7 +70,7 @@ float CalcularTotalInventario(float precios[], int amount)
 
     return total_operacion;
 }
-//funciones para hallar el producto más caro y más barato 👍
+// funciones para hallar el producto más caro y más barato 👍
 void HallarProductoBara(float precios[], char productos[][30], int amount)
 {
     int posicion_del_precio = 0;
@@ -110,7 +108,7 @@ float CalcularPromedioPrecios(float precios[], int amount)
     return promedio;
 }
 
-//Función para el caso 4: buscar la info de un producto en stock por nombre:
+// Función para el caso 4: buscar la info de un producto en stock por nombre:
 
 void BuscarInfoPorNombre(char productos[][30], float precios[], int amount)
 {
@@ -123,27 +121,34 @@ void BuscarInfoPorNombre(char productos[][30], float precios[], int amount)
 
     // Remover el salto de línea si está presente
     len = strlen(nombre) - 1;
-    if (nombre[len] == '\n') {
+    if (nombre[len] == '\n')
+    {
         nombre[len] = '\0';
     }
-
-    // Buscar el producto en la lista
-    for (int i = 0; i < amount; i++)
+    if (strlen(nombre) == 0)
     {
-        if (strcmp(productos[i], nombre) == 0)
-        {
-            indiceEncontrado = i; // Guardamos la posición del producto encontrado
-            break;
-        }
-    }
-
-    if (indiceEncontrado != -1)
-    {
-        printf("Producto encontrado: %s\n", productos[indiceEncontrado]);
-        printf("Precio: %.2f\n", precios[indiceEncontrado]);
+        printf("No puede estar vacio\n");
     }
     else
     {
-        printf("No existe ningun producto con ese nombre en el stock.\n");
+        // Buscar el producto en la lista
+        for (int i = 0; i < amount; i++)
+        {
+            if (strcmp(productos[i], nombre) == 0)
+            {
+                indiceEncontrado = i; // Guardamos la posición del producto encontrado
+                break;
+            }
+        }
+
+        if (indiceEncontrado != -1)
+        {
+            printf("Producto encontrado: %s\n", productos[indiceEncontrado]);
+            printf("Precio: %.2f\n", precios[indiceEncontrado]);
+        }
+        else
+        {
+            printf("No existe ningun producto con ese nombre en el stock.\n");
+        }
     }
 }
