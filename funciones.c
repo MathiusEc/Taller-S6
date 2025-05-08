@@ -112,7 +112,8 @@ float CalcularPromedioPrecios(float precios[], int amount)
 
 void BuscarInfoPorNombre(char productos[][30], float precios[], int amount)
 {
-    int len, indiceEncontrado = -1; // -1 indica que no se ha encontrado el producto
+    int len, indiceEncontrado = -1;
+    int f = 0;
     char nombre[30];
 
     printf("Por favor ingrese el nombre del producto que desea buscar en stock.\n");
@@ -137,16 +138,16 @@ void BuscarInfoPorNombre(char productos[][30], float precios[], int amount)
             if (strcmp(productos[i], nombre) == 0)
             {
                 indiceEncontrado = i; // Guardamos la posición del producto encontrado
-                break;
+                f = 1; 
+
+                printf("\nProducto encontrado: %s\n", productos[indiceEncontrado]);
+                printf("Precio: %.2f\n", precios[indiceEncontrado]);
+
+                
             }
         }
 
-        if (indiceEncontrado != -1)
-        {
-            printf("Producto encontrado: %s\n", productos[indiceEncontrado]);
-            printf("Precio: %.2f\n", precios[indiceEncontrado]);
-        }
-        else
+        if (f == 0)
         {
             printf("No existe ningun producto con ese nombre en el stock.\n");
         }

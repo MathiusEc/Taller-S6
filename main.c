@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     do
     {
         printf("======================================================\n");
-        printf("=============SISTEMA DE CONTROL DE PRODUCTOS==========\n");
+        printf("\t\tSISTEMA DE CONTROL DE PRODUCTOS\t\t\n");
         printf("======================================================\n");
         printf("\n");
         printf("MENU:\n");
