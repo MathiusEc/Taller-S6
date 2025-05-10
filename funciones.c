@@ -2,7 +2,8 @@
 #include <string.h>
 #include "funciones.h"
 
-void llenarProductosInfo(char productos[][30], float precios[], int amount)
+// Ahora recibe también cantidades[]
+void llenarProductosInfo(char productos[][30], float precios[], int cantidades[], int amount)
 {
     int len = 0, val = 0, repetido;
     do
@@ -42,9 +43,9 @@ void llenarProductosInfo(char productos[][30], float precios[], int amount)
                     }
                 }
 
-            } while (len < 1 || repetido);
+            } while (len < 1 || repetido == 1);
         }
-    } while (len < 1 || repetido);
+    } while (len < 1 || repetido == 1);
     for (int k = 0; k < amount; k++)
     {
         do
@@ -57,21 +58,33 @@ void llenarProductosInfo(char productos[][30], float precios[], int amount)
                 printf("Por favor ingrese un valor valido mayor a 0.\n");
             }
         } while (val != 1 || (precios[k] <= 0));
+
+        do
+        {
+            printf("Por favor ingrese la cantidad en stock del producto %s\n", productos[k]);
+            fflush(stdin);
+            val = scanf("%d", &cantidades[k]);
+            if (val != 1 || cantidades[k] < 0)
+            {
+                printf("Por favor ingrese una cantidad valida (0 o mayor).\n");
+            }
+        } while (val != 1 || cantidades[k] < 0);
     }
 }
 
-float CalcularTotalInventario(float precios[], int amount)
+// Calcula el valor total del inventario sumando precio unitario * cantidad
+float CalcularTotalInventario(float precios[], int cantidades[], int amount)
 {
     float total_operacion = 0;
     for (int i = 0; i < amount; i++)
     {
-        total_operacion += precios[i];
+        total_operacion += precios[i] * cantidades[i];
     }
-
     return total_operacion;
 }
-// funciones para hallar el producto más caro y más barato 👍
-void HallarProductoBara(float precios[], char productos[][30], int amount)
+
+// Muestra también la cantidad
+void HallarProductoBara(float precios[], char productos[][30], int cantidades[], int amount)
 {
     int posicion_del_precio = 0;
     for (int i = 0; i < amount; i++)
@@ -81,10 +94,11 @@ void HallarProductoBara(float precios[], char productos[][30], int amount)
             posicion_del_precio = i;
         }
     }
-    printf("El producto mas barato en stock es: %s, con un precio de: %.2f\n", productos[posicion_del_precio], precios[posicion_del_precio]);
+    printf("El producto mas barato en stock es: %s, con un precio de: %.2f y cantidad: %d\n",
+           productos[posicion_del_precio], precios[posicion_del_precio], cantidades[posicion_del_precio]);
 }
 
-void HallarProductoCaro(float precios[], char productos[][30], int amount)
+void HallarProductoCaro(float precios[], char productos[][30], int cantidades[], int amount)
 {
     int posicion_del_precio = 0;
     for (int i = 0; i < amount; i++)
@@ -94,23 +108,27 @@ void HallarProductoCaro(float precios[], char productos[][30], int amount)
             posicion_del_precio = i;
         }
     }
-    printf("El producto mas caro en stock es: %s, con un precio de: %.2f\n", productos[posicion_del_precio], precios[posicion_del_precio]);
+    printf("El producto mas caro en stock es: %s, con un precio de: %.2f y cantidad: %d\n",
+           productos[posicion_del_precio], precios[posicion_del_precio], cantidades[posicion_del_precio]);
 }
 
-float CalcularPromedioPrecios(float precios[], int amount)
+// Calcula el promedio ponderado por cantidad
+float CalcularPromedioPrecios(float precios[], int cantidades[], int amount)
 {
-    float promedio = 0;
+    float suma = 0;
+    int total_cantidades = 0;
     for (int i = 0; i < amount; i++)
     {
-        promedio += precios[i];
+        suma += precios[i] * cantidades[i];
+        total_cantidades += cantidades[i];
     }
-    promedio /= amount;
-    return promedio;
+    if (total_cantidades == 0)
+        return 0;
+    return suma / total_cantidades;
 }
 
-// Función para el caso 4: buscar la info de un producto en stock por nombre:
-
-void BuscarInfoPorNombre(char productos[][30], float precios[], int amount)
+// Muestra también la cantidad
+void BuscarInfoPorNombre(char productos[][30], float precios[], int cantidades[], int amount)
 {
     int len, indiceEncontrado = -1;
     int f = 0;
@@ -138,12 +156,11 @@ void BuscarInfoPorNombre(char productos[][30], float precios[], int amount)
             if (strcmp(productos[i], nombre) == 0)
             {
                 indiceEncontrado = i; // Guardamos la posición del producto encontrado
-                f = 1; 
+                f = 1;
 
                 printf("\nProducto encontrado: %s\n", productos[indiceEncontrado]);
                 printf("Precio: %.2f\n", precios[indiceEncontrado]);
-
-                
+                printf("Cantidad en stock: %d\n", cantidades[indiceEncontrado]);
             }
         }
 
