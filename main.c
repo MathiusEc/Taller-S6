@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     char productos[PRODUCTOS_MAXIMO][30];
     int amount, opcin;
     float precios[PRODUCTOS_MAXIMO];
+    int cantidades[PRODUCTOS_MAXIMO]; // Nuevo arreglo para cantidades
     int validar, val;
     printf("======================================================\n");
     printf("\t\tSISTEMA DE GESTION DE PRODUCTOS\t\t\n");
@@ -33,7 +34,7 @@ int main(int argc, char *argv[])
 
     } while (val != 1 || (amount < 1 || amount > PRODUCTOS_MAXIMO));
 
-    llenarProductosInfo(productos, precios, amount);
+    llenarProductosInfo(productos, precios, cantidades, amount); // Modificado
 
     do
     {
@@ -62,26 +63,18 @@ int main(int argc, char *argv[])
         switch (opcin)
         {
         case 1:
-
-            printf("El total del precio del inventario es de: %.2f\n", CalcularTotalInventario(precios, amount));
+            printf("El total del precio del inventario es de: %.2f\n", CalcularTotalInventario(precios, cantidades, amount));
             printf("\n");
-
             break;
         case 2:// Hallar el producto más caro y mas bajo
-            
-            HallarProductoBara(precios, productos, amount);
-            HallarProductoCaro(precios, productos, amount);
-            //Hacemos un llamado a las funciones para poder usarlas.
+            HallarProductoBara(precios, productos, cantidades, amount);
+            HallarProductoCaro(precios, productos, cantidades, amount);
             break;
         case 3:// Calcular el precio promedio de los productos
-            
-            printf("El promedio de precios del stock es de: %.2f\n", CalcularPromedioPrecios(precios, amount));
-
+            printf("El promedio de precios del stock es de: %.2f\n", CalcularPromedioPrecios(precios, cantidades, amount));
             break;
         case 4:// Buscar producto por nombre y mostrar precio
-            
-            BuscarInfoPorNombre(productos, precios, amount);
-
+            BuscarInfoPorNombre(productos, precios, cantidades, amount);
             break;
         default:
             break;
